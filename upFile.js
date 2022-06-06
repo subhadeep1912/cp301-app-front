@@ -1,8 +1,8 @@
 import React, { Component , useState, useEffect} from "react";
 import { Button,
   SafeAreaView, 
-  View , FlatList, StyleSheet, Text, 
-  StatusBar} from "react-native";
+  View , FlatList, StyleSheet, Text, Dimensions,
+  StatusBar, TouchableOpacity} from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import * as FS from "expo-file-system";
@@ -10,59 +10,7 @@ import * as ImagePicker from "expo-image-picker";
 
 import toServer from "./toServer";
 
-const styles = StyleSheet.create({
-    homecontainer: {
-      flex: 1,
-      backgroundColor: 'white',
-      paddingTop:StatusBar.currentHeight
-    },
-    imgContainer: {
-      flex: 1,
-      backgroundColor: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    image:{
-        height:null,
-        width:null,
-        resizeMode:'contain'
-    },
-    homebuttons:{
-   
-        flexDirection:"row",
-        justifyContent:"flex-end",
-        bottom:50,
-        // alignItems:"center",
-        // paddingHorizontal:30,
-        position:"absolute",
-        right:30
-        // alignContent:"flex-end"
-    },
-    homebutton:{paddingLeft:15,},
-    container: {
-        flex: 1,
-        // backgroundColor: "black",
-        alignItems: "center",
-        justifyContent: "center",
-        
-      },
-      button:{
-        // backgroundColor:"#FB3E00",
-        width:"60%",
-        padding: 15,
-        borderRadius:10,
-        alignItems:"center"
-    },
-    icons:{
-        flexDirection: "row",
-      justifyContent: "space-evenly",
-      width: 120
-    },
-    cardContainer:{
-      flex:1,
-      padding:5
-    }
-  });
+const {height, width} = Dimensions.get("window")
 
 export class UploadImage extends Component {
 
@@ -132,14 +80,10 @@ export class UploadImage extends Component {
 
             <View style={styles.homebuttons}>
 
-                {this.state.cameraRollPer ? (    
-                <Icon.Button 
-                    name="image" 
-                    backgroundColor="#42c0fb" 
-                    size={30}
-                    style={styles.homebutton}
-                    // onPress={async ()=> navigation.navigate('Gallery')}
-                    onPress={async () => {
+                {this.state.cameraRollPer ? (  
+                  <TouchableOpacity
+
+                  onPress={async () => {
                         await this.pickMedia();
                         this.setState((s, p) => {
                           return {
@@ -147,8 +91,20 @@ export class UploadImage extends Component {
                             disableButton: false,
                           };
                         });
-                      }}
+                      }}>
+                        <View style={{flex:1, justifyContent:"center", alignContent:"center", alignItems:"center", padding:5}}>
+                        <Text style={styles.text}>Upload {this.props.route.params.bru}</Text>
+                        <Text style={styles.text}>UPLOAD IMAGE</Text>
+                <Icon
+                    name="image" 
+                    // backgroundColor="purple" 
+                    size={100}
+                    // width={50}
+                    style={{alignSelf:"center"}}
+                    // onPress={async ()=> navigation.navigate('Gallery')}
                     />
+                        </View>
+                    </TouchableOpacity>  
                     ):(
                         <Text style={styles.buttonText}>Pick Image</Text>
                     )
@@ -158,5 +114,78 @@ export class UploadImage extends Component {
       );
     }
   }
+  const styles = StyleSheet.create({
+    homecontainer: {
+      flex: 1,
+      backgroundColor: 'black',
+      paddingTop:StatusBar.currentHeight,
+      justifyContent:"center"
+    },
+    imgContainer: {
+      flex: 1,
+      backgroundColor: 'red',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    image:{
+        height:null,
+        width:null,
+        resizeMode:'contain'
+    },
+    homebuttons:{
+        flex:1,
+        flexDirection:"row",
+        justifyContent:"flex-end",
+  
+        padding:10,
+        // alignItems:"center",
+        // paddingHorizontal:30,
+        position:"absolute",
+         backgroundColor:"#303030",
+        height: height/3,
+        width:width/2,
+        alignSelf :"center",
+        borderRadius:10
+        // alignContent:"flex-end"
+    },
+    homebutton:{
+      position:"relative",
+      right:15,
+      left:5,
+      top:5,
+      bottom:15,
+      height:50,
+      width:150,
+      backgroundColor:'red'
+    },
+    container: {
+        flex: 1,
+        // backgroundColor: "black",
+        alignItems: "center",
+        justifyContent: "center",
+        
+      },
+      button:{
+        // backgroundColor:"#FB3E00",
+        width:"100%",
+        padding: 150,
+        borderRadius:10,
+        alignItems:"center"
+    },
+    icons:{
+        flexDirection: "row",
+      justifyContent: "space-evenly",
+      width: 120
+    },
+    cardContainer:{
+      flex:1,
+      padding:5
+    },
+    text:{
+      fontSize:20,
+      alignSelf:"center",
+      color:"#b3b3b3"
+    }
+  });
 
   export default UploadImage;

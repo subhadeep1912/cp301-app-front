@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "app",
+    "name": "XRay Analyser",
+    "description":"Analyses xray for Pneuomonia",
     "slug": "app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -23,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.subhadeep.xrayanalyser"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -1,4 +1,3 @@
-import react from "react";
 import * as FS from "expo-file-system";
 
 export default async function toServer(mediaFile){
@@ -12,7 +11,8 @@ export default async function toServer(mediaFile){
     type === "image"
       ? ((route = "/image"), (content_type = "image/jpeg"))
       : ((route = "/video"), (content_type = "video/mp4"));
-    url = schema + host + ":" + port + route;
+    // url = "https://xray-flask.herokuapp.com" + route;
+    url = "http://192.168.128.60:5000" + route
 
     let response = await FS.uploadAsync(url, mediaFile.uri, {
       headers: {
